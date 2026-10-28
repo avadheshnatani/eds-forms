@@ -219,6 +219,260 @@
             "valueType": "string"
           }
         ]
+      },
+      {
+        "component": "container",
+        "name": "fedexRestEndpointSettings",
+        "label": "FedEx - Submit to REST Endpoint settings (used by \"Submit to REST endpoint - EDS\" and \"FedEx - Submit to REST endpoints (APIs)\")",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "restEndpointPostUrl",
+            "label": "REST API Endpoint",
+            "description": "Absolute URL including http:// or https://. Example: https://api.example.com/rest/submit",
+            "valueType": "string",
+            "required": true
+          },
+          {
+            "component": "number",
+            "name": "restTimeout",
+            "label": "REST API Timeout (seconds)",
+            "description": "1-120. Defaults to 30 when empty.",
+            "valueType": "number",
+            "validation": {
+              "numberMin": 1,
+              "numberMax": 120
+            }
+          },
+          {
+            "component": "textarea",
+            "name": "apiRequestBodyJSON",
+            "label": "API Request Body Json",
+            "valueType": "string"
+          },
+          {
+            "component": "text",
+            "name": "customHeaders",
+            "label": "Custom headers added to the request during submission",
+            "description": "One entry per value in {header name}={header value} format.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "fieldParameterMapping",
+            "label": "Mapping for passing field values as Thank You Page request parameters",
+            "description": "One entry per value in {Field Name}={Parameter Name} format.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "attachAPIParameterMapping",
+            "label": "Mapping for passing request params to Attachment API",
+            "description": "One entry per value in {API Request Field Name}={Response Parameter Name} format.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "boolean",
+            "name": "authenticateAPI",
+            "label": "Authenticate API?",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "authenticateAPIEndpoint",
+            "label": "Authenticate API Endpoint",
+            "description": "Absolute URL of the authentication (token) API.",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "number",
+            "name": "authTimeout",
+            "label": "AUTH API Timeout (seconds)",
+            "description": "1-120. Defaults to 30 when empty.",
+            "valueType": "number",
+            "validation": {
+              "numberMin": 1,
+              "numberMax": 120
+            },
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "clientId",
+            "label": "Client ID",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "clientSecret",
+            "label": "Client Secret",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "apiUserName",
+            "label": "API User name",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "apiUserPassword",
+            "label": "API User Password",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "authenticateAPI"
+                },
+                true
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "fedexEmailSettings",
+        "label": "FedEx - Email Submit Action settings",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "from",
+            "label": "From",
+            "valueType": "string",
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "mailto",
+            "label": "To",
+            "description": "Valid email ID. When 'Enable Email To Dynamic Id' is checked, use {valueInFormSelectionField}={emailId}.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "cc",
+            "label": "CC",
+            "description": "Valid email ID. When 'Enable Email To Dynamic Id' is checked, use {valueInFormSelectionField}={emailId}.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "text",
+            "name": "bcc",
+            "label": "BCC",
+            "description": "Valid email ID. When 'Enable Email To Dynamic Id' is checked, use {valueInFormSelectionField}={emailId}.",
+            "valueType": "string",
+            "multi": true
+          },
+          {
+            "component": "boolean",
+            "name": "emailtoDynamicId",
+            "label": "Enable Email To Dynamic Id",
+            "description": "Resolve To, CC and BCC recipients from the value selected in a form field.",
+            "valueType": "boolean"
+          },
+          {
+            "component": "text",
+            "name": "fieldNameForDynamicMailMapping",
+            "label": "Form field name to be mapped for dynamic MailTo",
+            "description": "Name of the selection field whose value drives the dynamic To, CC and BCC mapping.",
+            "valueType": "string",
+            "condition": {
+              "===": [
+                {
+                  "var": "emailtoDynamicId"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "subject",
+            "label": "Subject",
+            "description": "Supports ${fieldName} substitution from the submitted data.",
+            "valueType": "string"
+          },
+          {
+            "component": "textarea",
+            "name": "template",
+            "label": "Email Template",
+            "description": "HTML body supporting ${fieldName} substitution. Used when no template path is configured.",
+            "valueType": "string"
+          },
+          {
+            "component": "aem-content",
+            "name": "templatePath",
+            "label": "Email Template Path",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "emailCopytoCustomer",
+            "label": "Email Copy To Customer",
+            "description": "Send a copy of the submitted data to the user who submitted the form.",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "includeAttachments",
+            "label": "Include attachments",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "enableReplyTo",
+            "label": "Enable Reply To ?",
+            "description": "Masks the From address with the submitter email. The form must contain an email field named 'aafEmailField'.",
+            "valueType": "boolean"
+          }
+        ]
       }
     ]
   },
