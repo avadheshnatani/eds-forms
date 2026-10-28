@@ -23,7 +23,7 @@ module.exports = {
     }],
     'xwalk/max-cells': ['error', {
       '*': 4, // default limit for all models
-      form: 17,
+      form: 27,
       wizard: 12,
       'form-button': 7,
       'checkbox-group': 20,
@@ -47,7 +47,7 @@ module.exports = {
       rating: 18,
       password: 20,
       tnc: 12,
-      range: 19
+      range: 19,
     }],
     'xwalk/no-orphan-collapsible-fields': 'off', // Disable until enhancement is done for Forms properties
   },
